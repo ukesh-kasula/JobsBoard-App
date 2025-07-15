@@ -3,6 +3,5 @@
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "buildCommand": "node scripts/set-env.ts && ng build --configuration=production",
-  "outputDirectory": "dist/job-posting-application/browser",
-  "ignoreCommand": "echo 'Skipping ignore check'"
+  "outputDirectory": "dist/job-posting-application/browser"
 }
