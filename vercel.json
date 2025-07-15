@@ -2,5 +2,5 @@
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "outputDirectory": "dist/job-posting-application"
+  "outputDirectory": "dist/job-posting-application/browser"
 }
