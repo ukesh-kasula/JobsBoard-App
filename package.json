@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:vercel": "OPENROUTER_API_KEY=$OPENROUTER_API_KEY node ./replace-env.js && ng build --configuration=production"
+
   },
   "private": true,
   "dependencies": {

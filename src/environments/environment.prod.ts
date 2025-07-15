@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  openRouterApiKey: ''
+  openRouterApiKey: '__OPENROUTER_API_KEY__'
 };
