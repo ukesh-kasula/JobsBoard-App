@@ -20,13 +20,12 @@ export const routes: Routes = [
   {
     path: 'jobposts',
     loadComponent: ()=> import('./job-posts/job-posts.component').then((m)=>m.JobPostsComponent),
-    canActivate:[authGuard]
     // component: JobPostsComponent,
   },
   {
     path: 'jobposts/:id',
     loadComponent: ()=> import('./view-job/view-job.component').then((m)=>m.ViewJobComponent),
-    canActivate:[authGuard]
+   
     // component: ViewJobComponent,
   },
   
