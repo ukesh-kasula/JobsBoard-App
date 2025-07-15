@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class ChatService {
   private apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-  private apiKey = environment.openRouterApiKey;
+  private apiKey = environment.OPEN_ROUTER_KEY;
   private referer = 'chatbot';
   private siteTitle = 'bot';
 

@@ -2,5 +2,7 @@
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "outputDirectory": "dist/job-posting-application/browser"
+  "buildCommand": "node scripts/set-env.ts && ng build --configuration=production",
+  "outputDirectory": "dist/job-posting-application/browser",
+  "ignoreCommand": "echo 'Skipping ignore check'"
 }
