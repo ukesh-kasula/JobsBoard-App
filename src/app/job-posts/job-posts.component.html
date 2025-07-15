@@ -1,0 +1,85 @@
+<div class="container" style="margin-top: 80px">
+   <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/about">About</a></li>
+        <li class="breadcrumb-item active" aria-current="page">jobposts</li>
+      </ol>
+    </nav>
+  <div class="d-flex align-items-center justify-content-center pb-2">
+    <div class="input-group w-50 shadow-sm rounded overflow-hidden search">
+      <input
+        type="text"
+        class="form-control border-0"
+        placeholder="Looking for specific role?"
+        (input)="onSearch()"
+        [(ngModel)]="serachedJob"
+      />
+      <button class="btn btn1 px-4" type="button" (click)="onSearch()">
+        <i class="bi bi-search me-1"></i> Search
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container py-4">
+  <div class="row g-4">
+    <div
+      *ngFor="let job of jobList; let i = index"
+      class="col-sm-12 col-md-6 col-lg-4"
+    >
+      <div class="job-card card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body">
+          <h5 class="card-title fw-bold text-primary">{{ job.jobrole }}</h5>
+          <p class="card-text">
+            <i class="bi bi-building me-1"></i> <strong>Company:</strong>
+            {{ job.Companyname }}
+          </p>
+          <p class="card-text">
+            <i class="bi bi-geo-alt me-1"></i> <strong>Location:</strong>
+            {{ job.location }}
+          </p>
+          <p class="card-text">
+            <i class="bi bi-briefcase me-1"></i> <strong>Type:</strong>
+            {{ job.jobtype }}
+          </p>
+        </div>
+        <div
+          class="card-footer bg-transparent border-0 d-flex justify-content-between"
+        >
+          <button
+            class="btn btn-primary btn-sm px-4"
+            [routerLink]="['/jobposts', job.id]"
+          >
+            View Details
+          </button>
+          <button
+            class="btn btn-outline-success btn-sm px-4"
+           (click)="apply(job.id)"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="noMatchesFound"
+  class="text-danger mt-2 fw-bolder text-center mb-5 py-5 fs-5"
+>
+  Sorry, we couldn't find any job roles matching your search
+</div>
+<div style="height: 40vh" *ngIf="isshow"></div>
+<div class="main-content container">
+  <div
+    *ngIf="isloading"
+    class="d-flex justify-content-center align-items-center my-5"
+    style="height: 50vh"
+  >
+    <iframe
+      src="https://lottie.host/embed/fac78b27-acea-42f9-be4f-efda413d46c2/43Q13XrIfy.lottie"
+      style="width: 200px; height: 200px; border: none"
+    ></iframe>
+  </div>
+</div>

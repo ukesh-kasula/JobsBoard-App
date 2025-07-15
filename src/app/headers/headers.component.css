@@ -1,0 +1,11 @@
+.active {
+  text-transform: uppercase;
+  font-weight: 600;
+  border-bottom: 2px solid white;
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+.nav-link:hover {
+  color: #f8f9fa !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+}

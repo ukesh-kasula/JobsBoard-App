@@ -1,0 +1,13 @@
+/* footer.component.css */
+.active{
+    font-weight: 700;
+    font-size: large;
+}
+
+footer .bi {
+  transition: transform 0.2s ease;
+}
+footer .bi:hover {
+  transform: scale(1.2);
+}
+

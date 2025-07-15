@@ -1,0 +1,43 @@
+.job-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+   position: relative;     
+  overflow: visible;
+}
+
+.job-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.card-title {
+  font-size: 1.25rem;
+}
+
+.card-footer .btn {
+  font-weight: 500;
+}
+.job-card .dropdown-menu {
+  z-index: 2000;          
+}
+
+.btnn{
+  background-color: #ffffff !important;
+  border: #0d6efd solid 2px ;
+}
+.btnn:hover{
+  background-color: #0d6efd !important;
+  color: #ffffff;
+
+}
+.status{
+  color: #0d6efd !important;
+}
+.btn1{
+  background-color: #0d6efd !important;
+  color: #ffffff;
+}
+.search{
+  border: #0d6efd solid 2px !important;
+  border-radius: 11px !important;
+}

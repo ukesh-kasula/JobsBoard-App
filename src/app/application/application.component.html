@@ -1,0 +1,185 @@
+<div class="job-form-page" style="margin-top: 70px;">
+  <nav aria-label="breadcrumb" style="margin-left: 120px">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+      <li class="breadcrumb-item"><a routerLink="/about">About</a></li>
+      <li class="breadcrumb-item"><a routerLink="/jobposts">jobposts</a></li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Apply / {{ jobList[0]?.Companyname }} ({{ jobList[0]?.jobrole }})
+      </li>
+    </ol>
+  </nav>
+</div>
+<div style="margin-bottom: 50px">
+  <div
+    class="job-form-page d-flex align-items-center justify-content-center min-vh-100"
+  >
+    <div
+      class="form-wrapper bg-white rounded-4 shadow-lg p-5 w-100 mt-3"
+      style="max-width: 800px"
+    >
+      <h2 class="mb-4 text-center fw-bold text-primary">
+        <i class="bi bi-person-vcard-fill"></i>
+        Join {{ jobList[0]?.Companyname }} as a {{ jobList[0]?.jobrole }}
+      </h2>
+      <form [formGroup]="applicationForm" (ngSubmit)="submitApp()" novalidate>
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Full Name*</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="fullName"
+            />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email Address*</label>
+            <input type="email" class="form-control" formControlName="email" />
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Phone Number*</label>
+            <input type="text" class="form-control" formControlName="phone" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" formControlName="dob" />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label me-3">Gender</label>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              value="Male"
+              formControlName="gender"
+            />
+            <label class="form-check-label">Male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              value="Female"
+              formControlName="gender"
+            />
+            <label class="form-check-label">Female</label>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Address</label>
+          <textarea
+            class="form-control"
+            formControlName="address"
+            rows="2"
+          ></textarea>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Highest Qualification*</label>
+            <select class="form-select" formControlName="qualification">
+              <option value="" disabled>--Select--</option>
+              <option value="Bachelors">Bachelors</option>
+              <option value="Masters">Masters</option>
+              <option value="PhD">PhD</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Preferred Location</label>
+            <select class="form-select" formControlName="preferredLocation">
+              <option value="">--Select--</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Bangalore">Bangalore</option>
+              <option value="Remote">Remote</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Resume Upload*</label>
+          <input
+            type="file"
+            class="form-control"
+            (change)="onFileChange($event)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Cover Letter</label>
+          <textarea
+            class="form-control"
+            formControlName="coverLetter"
+            rows="3"
+          ></textarea>
+        </div>
+        <div formArrayName="skills" class="mb-4">
+          <label class="form-label">Skills</label>
+          <div
+            *ngFor="let skill of skillControls; let i = index"
+            class="d-flex align-items-center gap-2 mb-2"
+          >
+            <input
+              type="text"
+              class="form-control"
+              [formControlName]="i"
+              placeholder="Skill {{ i + 1 }}"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm"
+              (click)="deleteSkill(i)"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          <button
+            type="button"
+            class="btn btn-outline-secondary btn-sm mt-2 ms-2"
+            (click)="addSkill()"
+          >
+            <i class="bi bi-plus-square-fill"></i> Add Skill
+          </button>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label class="form-label">LinkedIn Profile</label>
+            <input type="url" class="form-control" formControlName="linkedin" />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Experience (Years)*</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="experience"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Notice Period (Days)</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="noticePeriod"
+            />
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <button
+            type="submit"
+            class="btn btn-primary px-5"
+            [disabled]="applicationForm.invalid"
+          >
+            <i class="bi bi-send-check"></i> Submit Application
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

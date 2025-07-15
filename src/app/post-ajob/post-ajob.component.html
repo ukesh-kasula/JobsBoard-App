@@ -1,0 +1,171 @@
+<div class="job-form-page pt-4" style="margin-top: 50px">
+  <nav aria-label="breadcrumb" style="margin-left: 120px">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+      <li class="breadcrumb-item"><a routerLink="/about">About</a></li>
+      <li class="breadcrumb-item"><a routerLink="/jobposts">jobposts</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Post a job</li>
+    </ol>
+  </nav>
+</div>
+<div
+  class="job-form-page d-flex align-items-center justify-content-center min-vh-100"
+>
+  <div
+    class="form-wrapper bg-white rounded-4 shadow-lg p-5 w-100 mt-3"
+    style="max-width: 800px"
+  >
+    <h2 class="mb-4 text-center fw-bold text-primary">
+      <i class="bi bi-bookmark-check-fill"></i>Post A Job
+    </h2>
+
+    <form [formGroup]="postingForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Job Name</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="jobrole"
+            placeholder="e.g. Frontend Developer"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Job ID</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="jobid"
+            placeholder="e.g. J12345"
+          />
+        </div>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Location</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="location"
+            placeholder="e.g. Hyderabad"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Salary</label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="salary"
+            placeholder="e.g. 800000"
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Company</label>
+        <input
+          rows="3"
+          class="form-control"
+          formControlName="Companyname"
+          placeholder="Companyname"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Job Type</label>
+        <select class="form-select" formControlName="jobtype">
+          <option value="" disabled selected>Select job type</option>
+          <option value="full-time">Full-time</option>
+          <option value="Contract">Contract</option>
+        </select>
+      </div>
+
+      <div formArrayName="skills" class="mb-4">
+        <label class="form-label">Skills</label>
+        <div
+          *ngFor="let skill of skillControls; let i = index"
+          class="d-flex align-items-center gap-2 mb-2"
+        >
+          <input
+            type="text"
+            class="form-control"
+            [formControlName]="i"
+            placeholder="Skill {{ i + 1 }}"
+          />
+          <button
+            type="button"
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteSkill(i)"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm mt-2"
+          (click)="addSkill()"
+        >
+          <i class="bi bi-plus-square-fill"></i> Add Skill
+        </button>
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Qualifications</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="Qualifications"
+          placeholder="e.g. B.Tech, M.Sc"
+        />
+      </div>
+      <div class="mb-3">
+        <div class="d-flex justify-content-between mb-2">
+          <label class="form-label">Job Description</label>
+          <button
+            type="button"
+            class="btn btn-primary px-3"
+            *ngIf="!isLoading"
+            (click)="generateDes()"
+            [disabled]="
+              postingForm.get('jobrole')?.invalid ||
+              postingForm.get('Companyname')?.invalid ||
+              postingForm.get('skills')?.invalid ||
+              postingForm.get('Qualifications')?.invalid
+            "
+          >
+            <i class="bi bi-robot me-2"></i> Generate Job Description
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            disabled
+            *ngIf="isLoading"
+          >
+            <span
+              class="spinner-border spinner-border-sm me-2"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Generating...
+            <i class="bi bi-lightning-fill ms-2"></i>
+          </button>
+        </div>
+        <textarea
+          rows="6"
+          class="form-control"
+          formControlName="Description"
+          placeholder="Describe the role"
+        ></textarea>
+      </div>
+      <div class="text-center">
+        <button
+          type="submit"
+          class="btn btn-primary px-5"
+          [disabled]="postingForm.invalid"
+        >
+          <i class="bi bi-box-arrow-in-up-right"></i> Post Job
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

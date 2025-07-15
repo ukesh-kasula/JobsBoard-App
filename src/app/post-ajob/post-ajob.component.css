@@ -1,0 +1,10 @@
+.job-form-page {
+  background: linear-gradient(135deg, #f1f4f9, #dff1ff);
+  padding: 10px 20px;
+}
+
+.form-wrapper {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
