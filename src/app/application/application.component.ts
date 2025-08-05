@@ -12,10 +12,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { jobs } from '../models/jobs.model';
 import { JobsService } from '../services/jobs.service';
+import { apiService } from '../services/api.service';
 
 @Component({
   selector: 'app-application',
-  imports: [ReactiveFormsModule, CommonModule, FormsModule,RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, RouterLink],
   templateUrl: './application.component.html',
   styleUrl: './application.component.css',
 })
@@ -23,10 +24,12 @@ export class ApplicationComponent implements OnInit {
   private fb: FormBuilder = inject(FormBuilder);
   protected applicationForm!: FormGroup;
   protected toastr = inject(ToastrService);
-  private activeRout:ActivatedRoute = inject(ActivatedRoute)
-  protected jobId!:number
-  private jobsService:JobsService = inject(JobsService)
-  protected jobList!:jobs[]
+  private activeRout: ActivatedRoute = inject(ActivatedRoute);
+  protected jobId!: number;
+  private jobsService: JobsService = inject(JobsService);
+  protected jobList!: jobs;
+  private apiService: apiService = inject(apiService);
+  protected isloading: boolean = true;
   ngOnInit(): void {
     this.applicationForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -44,14 +47,15 @@ export class ApplicationComponent implements OnInit {
       experience: [0, [Validators.required, Validators.min(0)]],
       noticePeriod: [''],
     });
-    this.activeRout.queryParamMap.subscribe((data)=>{
-      this.jobId = Number(data.get('job') || '')
-      if(this.jobId){
-        this.jobList = this.jobsService.jobsList.filter((res)=>{
-          return res.id==this.jobId
-        })
+    this.activeRout.queryParamMap.subscribe((data) => {
+      this.jobId = Number(data.get('job') || '');
+      if (this.jobId) {
+        this.apiService.singleJob(this.jobId).subscribe((job: jobs) => {
+          this.jobList = job;
+          this.isloading = false;
+        });
       }
-    })
+    });
   }
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -71,8 +75,7 @@ export class ApplicationComponent implements OnInit {
     (<FormArray>this.applicationForm.get('skills')).removeAt(val);
   }
   submitApp() {
-    console.log(this.applicationForm);
     this.toastr.success('your Application was submitted Successfully!');
-    this.applicationForm.reset()
+    this.applicationForm.reset();
   }
 }

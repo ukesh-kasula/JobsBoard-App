@@ -5,12 +5,12 @@
       <li class="breadcrumb-item"><a routerLink="/about">About</a></li>
       <li class="breadcrumb-item"><a routerLink="/jobposts">jobposts</a></li>
       <li class="breadcrumb-item active" aria-current="page">
-        Apply / {{ jobList[0]?.Companyname }} ({{ jobList[0]?.jobrole }})
+        Apply / {{ jobList?.Companyname }} ({{ jobList?.jobrole }})
       </li>
     </ol>
   </nav>
 </div>
-<div >
+<div *ngIf="!isloading">
   <div
     class="job-form-page d-flex align-items-center justify-content-center min-vh-100"
   >
@@ -20,7 +20,7 @@
     >
       <h2 class="mb-4 text-center fw-bold text-primary">
         <i class="bi bi-person-vcard-fill"></i>
-        Join {{ jobList[0]?.Companyname }} as a {{ jobList[0]?.jobrole }}
+        Join {{ jobList?.Companyname }} as a {{ jobList?.jobrole }}
       </h2>
       <form [formGroup]="applicationForm" (ngSubmit)="submitApp()" novalidate>
         <div class="row g-3 mb-3">
@@ -181,5 +181,18 @@
         </div>
       </form>
     </div>
+  </div>
+</div>
+<div class="main-content container">
+  <div
+    *ngIf="isloading"
+    class="d-flex justify-content-center align-items-center my-5"
+    style="height: 50vh"
+  >
+    <div
+      class="spinner-grow text-primary"
+      role="status"
+      style="width: 4rem; height: 4rem;"
+    ></div>
   </div>
 </div>

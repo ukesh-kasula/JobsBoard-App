@@ -15,7 +15,6 @@ export class ViewJobComponent implements OnInit {
   singleJob!: jobs | undefined;
   activeId!:number
   activeRoute:ActivatedRoute = inject(ActivatedRoute)
-  jobservice: JobsService = inject(JobsService)
   private router:Router = inject(Router)
   private apiService:apiService = inject(apiService)
   protected isloading:boolean = true
