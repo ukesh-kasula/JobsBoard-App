@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<div class="container py-4">
+<div class="container py-4" *ngIf="!isloading">
   <div class="row g-4">
     <div
       *ngFor="let job of jobList; let i = index"

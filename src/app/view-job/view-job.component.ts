@@ -3,6 +3,7 @@ import { jobs } from '../models/jobs.model';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { JobsService } from '../services/jobs.service';
 import { CommonModule } from '@angular/common';
+import { apiService } from '../services/api.service';
 
 @Component({
   selector: 'app-view-job',
@@ -16,11 +17,16 @@ export class ViewJobComponent implements OnInit {
   activeRoute:ActivatedRoute = inject(ActivatedRoute)
   jobservice: JobsService = inject(JobsService)
   private router:Router = inject(Router)
+  private apiService:apiService = inject(apiService)
+  protected isloading:boolean = true
 
 ngOnInit() {
   this.activeRoute.paramMap.subscribe((data)=>{
     this.activeId = Number(data.get("id"))
-    this.singleJob = this.jobservice.jobsList.find((jobs)=>jobs.id === this.activeId)
+    this.apiService.singleJob(this.activeId).subscribe((jobs:jobs)=>{
+      this.singleJob = jobs
+      this.isloading = false
+    })
   })
     
 }

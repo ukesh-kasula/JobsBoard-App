@@ -9,11 +9,11 @@
       </li>
     </ol>
   </nav>
-  <div class="text-center mb-4" style="margin-top: 0px">
+  <div class="text-center mb-4" style="margin-top: 0px" *ngIf="!isloading">
     <h2 class="fw-bold text-primary">{{ singleJob?.Companyname }}</h2>
   </div>
 
-  <div class="bg-light p-4 rounded-2 shadow-lg border border-dark">
+  <div class="bg-light p-4 rounded-2 shadow-lg border border-dark" *ngIf="!isloading">
     <h3 class="mb-3 fw-bold">{{ singleJob?.jobrole }}</h3>
 
     <div class="row mb-3">
@@ -61,3 +61,17 @@
     </div>
   </div>
 </div>
+<div class="main-content container">
+  <div
+    *ngIf="isloading"
+    class="d-flex justify-content-center align-items-center my-5"
+    style="height: 50vh"
+  >
+    <div
+      class="spinner-grow text-primary"
+      role="status"
+      style="width: 4rem; height: 4rem;"
+    ></div>
+  </div>
+</div>
+

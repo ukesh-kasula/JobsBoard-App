@@ -7,6 +7,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { finalize } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
+import { apiService } from '../services/api.service';
 
 @Component({
   selector: 'app-job-posts',
@@ -15,7 +16,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './job-posts.component.css',
 })
 export class JobPostsComponent implements OnInit {
-  private jobService: JobsService = inject(JobsService);
+  private apiService: apiService = inject(apiService);
   protected jobList!: jobs[];
   protected jobListBackup!: jobs[];
   private router: Router = inject(Router);
@@ -43,13 +44,15 @@ export class JobPostsComponent implements OnInit {
     console.log(this.jobList.length);
   }
   ngOnInit(): void {
-    this.jobService.getAllJobs().subscribe((jobs: jobs[]) => {
+    this.apiService.getJobsData().subscribe((jobs: jobs[]) => {
       this.jobList = jobs;
       this.jobListBackup = jobs;
-      this.isloading = false;
+      setTimeout(() => {
+        this.isloading = false;
+      }, 1000);
     });
   }
-  apply(val:number){
-    this.router.navigate(['/applicationForm'],{queryParams:{job: val}});
+  apply(val: number) {
+    this.router.navigate(['/applicationForm'], { queryParams: { job: val } });
   }
 }

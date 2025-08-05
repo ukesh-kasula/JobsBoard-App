@@ -20,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ChatService } from '../services/aichat.service';
 import { RouterLink } from '@angular/router';
+import { apiService } from '../services/api.service';
 
 @Component({
   selector: 'app-post-ajob',
@@ -38,8 +39,9 @@ export class PostAJobComponent implements OnInit {
   protected postingForm!: FormGroup;
   private jobservice: JobsService = inject(JobsService);
   private aiChat: ChatService = inject(ChatService);
-  protected postedJobs!: jobs;
+  protected postedJobs!: jobs[];
   protected isLoading:boolean = false
+  private apiService:apiService = inject(apiService)
   toastr = inject(ToastrService);
   ngOnInit() {
     this.postingForm = this.fb.group({
@@ -91,10 +93,8 @@ this.isLoading=true
     (<FormArray>this.postingForm.get('skills')).removeAt(val);
   }
   onSubmit() {
-    console.log(this.postingForm);
     this.postedJobs = this.postingForm.value;
-    console.log(this.postedJobs);
-    this.jobservice.jobsList.push(this.postedJobs);
+    this.apiService.postJob(this.postedJobs).subscribe()
     this.toastr.success('your Job was posted Successfully!');
     this.postingForm.reset()
   }
